@@ -1,0 +1,56 @@
+name: Build Windows Portable
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  test-web:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build web app
+        run: npm run build
+
+  build-windows:
+    runs-on: windows-latest
+    needs: test-web
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build portable EXE
+        run: npm run pack:portable
+
+      - name: Build NSIS installer
+        run: npm run pack:win:installer
+
+      - name: Upload release artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: caderno-portatil-windows
+          path: |
+            release/*.exe
+          if-no-files-found: error
