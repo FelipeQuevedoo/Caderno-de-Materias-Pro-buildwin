@@ -1,0 +1,42 @@
+{
+  "appId": "com.caderno.portatil",
+  "productName": "Caderno Portatil",
+  "directories": {
+    "output": "release"
+  },
+  "files": [
+    "dist/**/*",
+    "electron/**/*",
+    "package.json"
+  ],
+  "win": {
+    "target": [
+      {
+        "target": "portable",
+        "arch": [
+          "x64"
+        ]
+      },
+      {
+        "target": "nsis",
+        "arch": [
+          "x64"
+        ]
+      }
+    ]
+  },
+  "portable": {
+    "artifactName": "Caderno-Portatil-${version}.exe"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "artifactName": "Caderno-Portatil-Setup-${version}.exe"
+  },
+  "asar": true,
+  "extraMetadata": {
+    "main": "electron/main.mjs"
+  },
+  "compression": "normal",
+  "executableName": "Caderno Portatil"
+}
