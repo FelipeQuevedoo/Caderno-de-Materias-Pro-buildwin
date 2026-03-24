@@ -13,9 +13,9 @@
     "start": "electron electron/main.mjs",
     "build": "node ./node_modules/vite/bin/vite.js build",
     "preview": "node ./node_modules/vite/bin/vite.js preview",
-    "pack:portable": "npm run build && electron-builder --config electron-builder.json --win portable",
-    "pack:win": "npm run build && electron-builder --config electron-builder.json --win portable nsis",
-    "pack:win:installer": "npm run build && electron-builder --config electron-builder.json --win nsis"
+    "pack:portable": "npm run build && electron-builder --config electron-builder.json --win portable --publish never",
+    "pack:win:installer": "npm run build && electron-builder --config electron-builder.json --win nsis --publish never",
+    "pack:win": "npm run build && electron-builder --config electron-builder.json --win portable nsis --publish never"
   },
   "dependencies": {
     "@tiptap/extension-color": "^3.20.4",
